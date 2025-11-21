@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stage Link – Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #0d0f2d;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 420px;
+      padding: 40px;
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    p.subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #bbbbbb;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: #fff;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #5f6cff;
+    }
+
+    .forgot {
+      float: right;
+      font-size: 12px;
+      color: #8aa2ff;
+      text-decoration: none;
+      margin-bottom: 15px;
+    }
+
+    .btn-login {
+      background: #4f73ff;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-login:hover {
+      background: #3c5fed;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 20px 0;
+      color: #888;
+      font-size: 13px;
+    }
+
+    .btn-google {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .btn-google img {
+      width: 20px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Stage Link</h2>
+    <p class="subtitle">Sign in to continue</p>
+
+    <label>Matricule</label>
+    <input type="text" placeholder="Enter your ID">
+
+    <label>Password</label>
+    <a href="#" class="forgot">Forgot password?</a>
+    <input type="password" placeholder="Enter password">
+
+    <label>Select your role</label>
+    <select>
+      <option>Student</option>
+      <option>Doctor / Supervisor</option>
+      <option>Hospital Department</option>
+      <option>Administrator</option>
+    </select>
+
+    <button class="btn-login">Sign in</button>
+
+    <div class="divider">or continue with</div>
+
+    <button class="btn-google">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+      Continue with Google
+    </button>
+  </div>
+
+</body>
+</html>
