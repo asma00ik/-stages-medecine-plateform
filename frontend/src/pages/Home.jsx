@@ -10,20 +10,30 @@ export default function Home() {
       <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[rgba(120,90,255,0.25)] blur-[200px] rounded-full"></div>
 
      
-      <header className="z-10 flex justify-between items-center text-white px-16 py-8 text-lg">
-        <div className="text-3xl font-bold tracking-wide">STAGE LINK</div>
-
-        <nav className="space-x-8">
+    <header className="z-50 w-full py-4 px-12 flex items-center justify-between">
+      {/* --- SECOND ROW FOR THE LOGO (CENTER OR LEFT) --- */}
+        <div className="flex items-center h-16">
+          <img
+            src="/logo.svg"
+            alt="logo"
+            className="h-24 w-auto object-contain pt-4"
+          />
+        </div>
+      {/* --- TOP NAV ONLY FOR LINKS --- */}
+        <nav className="flex items-center space-x-12 text-lg font-medium">
           <a href="#" className="text-[#d7d7ff] hover:text-white transition">Accueil</a>
           <a href="#" className="text-[#d7d7ff] hover:text-white transition">À propos</a>
           <a href="#" className="text-[#d7d7ff] hover:text-white transition">Contact</a>
         </nav>
-      </header>
 
-      {/* MAIN CONTENT */}
+    </header>
+
+
+
+    
       <main className="z-10 mt-24 text-center px-6">
         <h1 className="text-white text-5xl md:text-6xl font-bold mb-6 leading-tight">
-          Plateforme Nationale <span className="text-[#9b84ff]">de Gestion des Stages</span>
+          Plateforme Nationale <span className="text-[#9b84ff]">de Gestion des Stages medicales</span>
         </h1>
 
         <p className="max-w-2xl mx-auto text-[20px] text-[#e2e2ff] opacity-85 leading-relaxed mb-10">

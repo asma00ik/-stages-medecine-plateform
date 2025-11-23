@@ -10,7 +10,7 @@ export default function Portal() {
       path: "/login/etudiant",
     },
     {
-      title: "Médecin / Encadrant",
+      title: "Médecin",
       icon: "/icons/doctor.svg",
       path: "/login/medecin",
     },
@@ -20,7 +20,7 @@ export default function Portal() {
       path: "/login/hopital",
     },
     {
-      title: "Doyen / Administration",
+      title: "Administrateur",
       icon: "/icons/dean.svg",
       path: "/login/doyen",
     },
@@ -32,16 +32,24 @@ export default function Portal() {
       {/* Halo lumineux */}
       <div className="absolute top-[-260px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[rgba(120,90,255,0.25)] blur-[220px] rounded-full"></div>
 
-      {/* Navbar */}
-      <header className="z-10 flex justify-between items-center text-white px-16 py-8 text-lg">
-        <div className="text-3xl font-bold tracking-wide">STAGE LINK</div>
+      <header className="z-50 w-full py-4 px-12 flex items-center justify-between">
 
-        <nav className="space-x-8">
-          <a href="/" className="text-[#d7d7ff] hover:text-white transition">Accueil</a>
+        <div className="flex items-center h-16">
+          <img
+            src="/logo.svg"
+            alt="logo"
+            className="h-24 w-auto object-contain pt-4"   
+          />
+        </div>
+
+        <nav className="flex items-center space-x-12 text-lg font-medium">
+          <a href="#" className="text-[#d7d7ff] hover:text-white transition">Accueil</a>
           <a href="#" className="text-[#d7d7ff] hover:text-white transition">À propos</a>
           <a href="#" className="text-[#d7d7ff] hover:text-white transition">Contact</a>
         </nav>
+
       </header>
+
 
       {/* Content */}
       <main className="z-10 flex flex-col items-center text-center mt-20 px-6">
