@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -21,9 +22,9 @@ export default function Home() {
         </div>
       {/* --- TOP NAV ONLY FOR LINKS --- */}
         <nav className="flex items-center space-x-12 text-lg font-medium">
-          <a href="#" className="text-[#d7d7ff] hover:text-white transition">Accueil</a>
-          <a href="#" className="text-[#d7d7ff] hover:text-white transition">À propos</a>
-          <a href="#" className="text-[#d7d7ff] hover:text-white transition">Contact</a>
+            <Link to="/" className="text-[#d7d7ff] hover:text-white transition">Accueil</Link>
+            <Link to="/apropos" className="text-[#d7d7ff] hover:text-white transition">À propos</Link>
+            <Link to="/contact" className="text-[#d7d7ff] hover:text-white transition">Contact</Link>
         </nav>
 
     </header>
