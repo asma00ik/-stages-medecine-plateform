@@ -1,3 +1,5 @@
+# serializers.py
+
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.password_validation import validate_password
@@ -14,23 +16,27 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "email", "role", "is_staff")
 
 
-# ---------------- Register serializers (used by admin/hospital) ----------------
+# ---------------- Register serializers ----------------
 class RegisterStudentSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    password = serializers.CharField(write_only=True, validators=[validate_password])
+    email = serializers.EmailField(error_messages={"invalid": "Email invalide."})
+    password = serializers.CharField(
+        write_only=True,
+        validators=[validate_password],
+        error_messages={"required": "Mot de passe requis."}
+    )
     matricule = serializers.CharField(max_length=12)
     annee_univ = serializers.CharField(required=False, allow_blank=True)
 
     def validate_matricule(self, v):
         if not (v.isdigit() and len(v) == 12):
-            raise serializers.ValidationError("Matricule must be exactly 12 digits.")
+            raise serializers.ValidationError("Le matricule doit contenir exactement 12 chiffres.")
         if StudentProfile.objects.filter(matricule=v).exists():
-            raise serializers.ValidationError("Matricule already exists.")
+            raise serializers.ValidationError("Ce matricule existe déjà.")
         return v
 
     def validate_email(self, v):
         if User.objects.filter(email=v).exists():
-            raise serializers.ValidationError("Email already used.")
+            raise serializers.ValidationError("Cet email est déjà utilisé.")
         return v
 
     def create(self, validated_data):
@@ -39,12 +45,16 @@ class RegisterStudentSerializer(serializers.Serializer):
             password=validated_data["password"],
             role="STUDENT"
         )
-        StudentProfile.objects.create(user=user, matricule=validated_data["matricule"], annee_univ=validated_data.get("annee_univ", ""))
+        StudentProfile.objects.create(
+            user=user,
+            matricule=validated_data["matricule"],
+            annee_univ=validated_data.get("annee_univ", "")
+        )
         return user
 
 
 class RegisterHospitalSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.EmailField(error_messages={"invalid": "Email invalide."})
     password = serializers.CharField(write_only=True, validators=[validate_password])
     code_etab = serializers.CharField()
     name = serializers.CharField(required=False, allow_blank=True)
@@ -52,16 +62,16 @@ class RegisterHospitalSerializer(serializers.Serializer):
 
     def validate_email(self, v):
         if User.objects.filter(email=v).exists():
-            raise serializers.ValidationError("Email already used.")
+            raise serializers.ValidationError("Cet email est déjà utilisé.")
         return v
 
     def validate_code_etab(self, v):
         if HospitalAccount.objects.filter(code_etablissement=v).exists():
-            raise serializers.ValidationError("Code etablissement already used.")
+            raise serializers.ValidationError("Ce code d’établissement est déjà utilisé.")
         return v
 
     def create(self, validated_data):
-        user = User.objects.create_user(
+        user = User.create_user(
             email=validated_data["email"],
             password=validated_data["password"],
             role="HOSPITAL"
@@ -76,18 +86,25 @@ class RegisterHospitalSerializer(serializers.Serializer):
 
 
 class RegisterDoctorSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.EmailField(error_messages={"invalid": "Email invalide."})
     password = serializers.CharField(write_only=True, validators=[validate_password])
     is_head = serializers.BooleanField(default=False)
 
     def validate_email(self, v):
         if User.objects.filter(email=v).exists():
-            raise serializers.ValidationError("Email already used.")
+            raise serializers.ValidationError("Cet email est déjà utilisé.")
         return v
 
     def create(self, validated_data):
-        user = User.objects.create_user(email=validated_data["email"], password=validated_data["password"], role="DOCTOR")
-        DoctorProfile.objects.create(user=user, is_head=validated_data.get("is_head", False))
+        user = User.objects.create_user(
+            email=validated_data["email"],
+            password=validated_data["password"],
+            role="DOCTOR"
+        )
+        DoctorProfile.objects.create(
+            user=user,
+            is_head=validated_data.get("is_head", False)
+        )
         return user
 
 
@@ -99,13 +116,17 @@ class StudentLoginSerializer(serializers.Serializer):
     def validate(self, attrs):
         matricule = attrs.get("matricule")
         password = attrs.get("password")
+
         try:
             profile = StudentProfile.objects.get(matricule=matricule)
         except StudentProfile.DoesNotExist:
-            raise serializers.ValidationError("Invalid credentials.")
+            raise serializers.ValidationError("Informations incorrectes.")
+
         user = profile.user
+
         if not user.check_password(password):
-            raise serializers.ValidationError("Invalid credentials.")
+            raise serializers.ValidationError("Informations incorrectes.")
+
         attrs["user"] = user
         return attrs
 
@@ -121,19 +142,21 @@ class HospitalLoginSerializer(serializers.Serializer):
         code = attrs.get("code_etab")
 
         user = authenticate(email=email, password=password)
+
         if not user or user.role != "HOSPITAL":
-            raise serializers.ValidationError("Invalid credentials.")
+            raise serializers.ValidationError("Informations incorrectes.")
 
         try:
             account = user.hospital_account
         except HospitalAccount.DoesNotExist:
-            raise serializers.ValidationError("Hospital account missing.")
+            raise serializers.ValidationError("Aucun compte hôpital associé.")
 
         if account.code_etablissement != code:
-            raise serializers.ValidationError("Invalid code_etab.")
+            raise serializers.ValidationError("Code établissement incorrect.")
 
         attrs["user"] = user
         return attrs
+
 
 class DoctorLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -142,22 +165,28 @@ class DoctorLoginSerializer(serializers.Serializer):
     chef_service = serializers.BooleanField(default=False)
 
     def validate(self, attrs):
-        email = attrs.get("email"); password = attrs.get("password")
+        email = attrs.get("email")
+        password = attrs.get("password")
         chef_flag = attrs.get("chef_service", False)
+
         user = authenticate(email=email, password=password)
+
         if not user or user.role != "DOCTOR":
-            raise serializers.ValidationError("Invalid credentials.")
+            raise serializers.ValidationError("Informations incorrectes.")
+
         try:
             doctor = user.doctor_profile
         except DoctorProfile.DoesNotExist:
-            raise serializers.ValidationError("Doctor profile missing.")
+            raise serializers.ValidationError("Profil médecin introuvable.")
+
         if chef_flag and not doctor.is_head:
-            raise serializers.ValidationError("Not head of service.")
+            raise serializers.ValidationError("Vous n’êtes pas chef de service.")
+
         attrs["user"] = user
         return attrs
 
 
-# ---------------- Token helper serializer (response) ----------------
+# ---------------- Token helper serializer ----------------
 class TokenResponseSerializer(serializers.Serializer):
     access = serializers.CharField()
     refresh = serializers.CharField()
