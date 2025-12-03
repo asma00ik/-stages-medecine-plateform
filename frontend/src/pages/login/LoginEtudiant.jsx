@@ -1,156 +1,117 @@
-<<<<<<< HEAD
-import LoginLayout from "../../components/LoginLayout";
-
-export default function LoginEtudiant() {
-  return (
-    <LoginLayout title="Connexion Étudiant">
-
-      <form className="space-y-4">
-
-        <div>
-          <label className="text-gray-700 text-sm">Matricule</label>
-          <input className="input-pro" placeholder="Ex: 225489632" />
-=======
-// src/pages/auth/LoginEtudiant.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginLayout from "../../components/LoginLayout";
 
-const API_LOGIN = "http://localhost:8000/api/accounts/login/student/";
-
 export default function LoginEtudiant() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [matricule, setMatricule] = useState("");
   const [email, setEmail] = useState("");
-  const [annee, setAnnee] = useState("");
   const [password, setPassword] = useState("");
+  const [anneeUniv, setAnneeUniv] = useState("");
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // Erreurs
+  const [matriculeError, setMatriculeError] = useState("");
+  const [anneeUnivError, setAnneeUnivError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError(null);
+
+    let valid = true;
+
+    // Matricule = année de bac + 8 chiffres => 12 chiffres
+    const matriculeRegex = /^\d{12}$/;
+    if (!matriculeRegex.test(matricule)) {
+      setMatriculeError("Le matricule doit contenir 12 chiffres (année de bac + 8 chiffres).");
+      valid = false;
+    } else {
+      const anneeBac = parseInt(matricule.slice(0, 4));
+      const currentYear = new Date().getFullYear();
+      if (anneeBac < 2000 || anneeBac > currentYear) {
+        setMatriculeError(`Les 4 premiers chiffres du matricule doivent être une année de bac valide (2000-${currentYear}).`);
+        valid = false;
+      } else {
+        setMatriculeError("");
+      }
+    }
+
+    // Année universitaire 3-7
+    const anneeUnivNum = parseInt(anneeUniv);
+    if (isNaN(anneeUnivNum) || anneeUnivNum < 3 || anneeUnivNum > 7) {
+      setAnneeUnivError("L'année universitaire doit être un nombre entre 3 et 7.");
+      valid = false;
+    } else {
+      setAnneeUnivError("");
+    }
+
+    if (!valid) return;
+
     setLoading(true);
 
-    try {
-      const res = await fetch(API_LOGIN, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          matricule,
-          email,
-          password,
-          annee_universitaire: annee,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        const msg = data.detail || data.message || "Erreur de connexion";
-        throw new Error(msg);
-      }
-
-      if (data.access) {
-        localStorage.setItem("accessToken", data.access);
-        localStorage.setItem("refreshToken", data.refresh);
-      } else if (data.token) {
-        localStorage.setItem("accessToken", data.token);
-      }
-
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
-      }
-
-      navigate("/dashboard/etudiant");
-    } catch (err) {
-      console.error(err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    // Simuler connexion
+    setTimeout(() => {
+      navigate("/student/dashboard");
+    }, 800);
   };
 
   return (
     <LoginLayout title="Connexion Étudiant">
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="space-y-5">
 
         <div>
-          <label className="text-gray-700 text-sm">Matricule</label>
+          <label className="text-gray-700 text-sm font-medium">Matricule</label>
           <input
-            className="input-pro"
-            placeholder="Ex: 225489632"
+            className={`input-pro ${matriculeError ? "border-red-500" : ""}`}
+            placeholder="Ex: 202300012345"
             value={matricule}
             onChange={(e) => setMatricule(e.target.value)}
-            required
           />
->>>>>>> ef9ad18c2c4d3b24b09bada37e8289dd8581bfb7
+          {matriculeError && <p className="text-red-500 text-sm mt-1">{matriculeError}</p>}
         </div>
 
         <div>
-          <label className="text-gray-700 text-sm">Email universitaire</label>
-<<<<<<< HEAD
-          <input type="email" className="input-pro" placeholder="exemple@univ.dz" />
-=======
+          <label className="text-gray-700 text-sm font-medium">Email universitaire</label>
           <input
             type="email"
             className="input-pro"
             placeholder="exemple@univ.dz"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
->>>>>>> ef9ad18c2c4d3b24b09bada37e8289dd8581bfb7
         </div>
 
         <div>
-          <label className="text-gray-700 text-sm">Mot de passe</label>
-<<<<<<< HEAD
-          <input type="password" className="input-pro" placeholder="••••••••" />
-=======
+          <label className="text-gray-700 text-sm font-medium">Mot de passe</label>
           <input
             type="password"
             className="input-pro"
             placeholder="••••••••"
+            minLength="6"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
->>>>>>> ef9ad18c2c4d3b24b09bada37e8289dd8581bfb7
         </div>
 
         <div>
-          <label className="text-gray-700 text-sm">Année universitaire</label>
-<<<<<<< HEAD
-          <input className="input-pro" placeholder="3e année" />
-        </div>
-
-        <button className="btn-pro">Se connecter</button>
-
-      </form>
-
-    </LoginLayout>
-  );
-}
-=======
+          <label className="text-gray-700 text-sm font-medium">Année universitaire</label>
           <input
-            className="input-pro"
-            placeholder="3e année"
-            value={annee}
-            onChange={(e) => setAnnee(e.target.value)}
-            required
+            type="number"
+            className={`input-pro ${anneeUnivError ? "border-red-500" : ""}`}
+            placeholder="3"
+            min="3"
+            max="7"
+            value={anneeUniv}
+            onChange={(e) => setAnneeUniv(e.target.value)}
           />
+          {anneeUnivError && <p className="text-red-500 text-sm mt-1">{anneeUnivError}</p>}
         </div>
-
-        {error && (
-          <div className="text-red-600 text-sm">{error}</div>
-        )}
 
         <button
-          className={`btn-pro ${loading ? "opacity-70 cursor-wait" : ""}`}
+          type="submit"
           disabled={loading}
+          className={`btn-pro ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
         >
           {loading ? "Connexion..." : "Se connecter"}
         </button>
@@ -159,4 +120,3 @@ export default function LoginEtudiant() {
     </LoginLayout>
   );
 }
->>>>>>> ef9ad18c2c4d3b24b09bada37e8289dd8581bfb7
