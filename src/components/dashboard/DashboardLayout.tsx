@@ -115,7 +115,7 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
               <GraduationCap className="w-6 h-6 text-primary-foreground" />
             </div>
             <span className="text-lg font-semibold text-sidebar-foreground">
-              Stage<span className="text-primary">Med</span>
+              Stage<span className="text-primary">Link</span>
             </span>
             <button 
               className="ml-auto lg:hidden text-sidebar-foreground"

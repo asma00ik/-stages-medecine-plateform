@@ -66,9 +66,9 @@ const Login = () => {
               <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-lg">
                 <GraduationCap className="w-7 h-7 text-primary-foreground" />
               </div>
-              <span className="text-2xl font-bold text-foreground">
-                Stage<span className="text-primary">Med</span>
-              </span>
+            <span className="text-2xl font-bold text-foreground">
+              Stage<span className="text-primary">Link</span>
+            </span>
             </Link>
             <p className="text-muted-foreground">
               Connectez-vous à votre espace

@@ -11,7 +11,7 @@ const Header = () => {
             <GraduationCap className="w-6 h-6 text-primary-foreground" />
           </div>
           <span className="text-xl font-semibold text-foreground">
-            Stage<span className="text-primary">Med</span>
+            Stage<span className="text-primary">Link</span>
           </span>
         </Link>
 
