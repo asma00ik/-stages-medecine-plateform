@@ -12,9 +12,9 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center">
                 <GraduationCap className="w-6 h-6 text-primary-foreground" />
               </div>
-              <span className="text-xl font-semibold text-foreground">
-                Stage<span className="text-primary">Med</span>
-              </span>
+            <span className="text-xl font-semibold text-foreground">
+              Stage<span className="text-primary">Link</span>
+            </span>
             </Link>
             <p className="text-muted-foreground max-w-sm">
               Plateforme de gestion des stages hospitaliers pour les étudiants 
@@ -48,7 +48,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-foreground mb-4">Contact</h4>
             <ul className="space-y-2 text-muted-foreground">
-              <li>support@stagemed.dz</li>
+              <li>support@stagelink.dz</li>
               <li>+213 XX XX XX XX</li>
               <li>Alger, Algérie</li>
             </ul>
@@ -56,7 +56,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border pt-8 text-center text-muted-foreground text-sm">
-          <p>© {new Date().getFullYear()} StageMed. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} StageLink. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
