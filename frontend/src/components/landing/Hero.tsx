@@ -39,9 +39,6 @@ const Hero = () => {
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
-            <Button variant="hero-outline" size="xl" asChild>
-              <a href="#features">Découvrir les fonctionnalités</a>
-            </Button>
           </div>
 
           {/* Stats */}

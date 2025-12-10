@@ -48,9 +48,9 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-foreground mb-4">Contact</h4>
             <ul className="space-y-2 text-muted-foreground">
-              <li>support@stagelink.dz</li>
-              <li>+213 XX XX XX XX</li>
-              <li>Alger, Algérie</li>
+              <li>stagelink35@gmail.com</li>
+              <li>+213 675244074</li>
+              <li>Boumerdes, Algérie</li>
             </ul>
           </div>
         </div>

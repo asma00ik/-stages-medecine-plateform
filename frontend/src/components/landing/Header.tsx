@@ -26,15 +26,6 @@ const Header = () => {
             Contact
           </a>
         </nav>
-
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" asChild>
-            <Link to="/login">Connexion</Link>
-          </Button>
-          <Button variant="hero" asChild className="hidden sm:inline-flex">
-            <Link to="/login">Accéder à la plateforme</Link>
-          </Button>
-        </div>
       </div>
     </header>
   );

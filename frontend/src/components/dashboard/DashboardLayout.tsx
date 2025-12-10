@@ -110,14 +110,25 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="h-16 flex items-center gap-3 px-4 border-b border-sidebar-border">
-            <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center">
-              <GraduationCap className="w-6 h-6 text-primary-foreground" />
-            </div>
+         <div className="h-16 flex items-center gap-3 px-4 border-b border-sidebar-border"> 
+
+<div className="h-16 flex items-center gap-3 px-4 border-b border-sidebar-border">
+
+  {/* RECTANGLE VIOLET + LOGO */}
+  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shadow-md">
+    <img
+      src="/logo.svg"
+      alt="StageLink"
+      className="w-7 h-7 object-contain"
+    />
+</div>
+
+          {/* NOM DE LA PLATEFORME */}
             <span className="text-lg font-semibold text-sidebar-foreground">
               Stage<span className="text-primary">Link</span>
             </span>
+
+            {/* BTN CLOSE */}
             <button 
               className="ml-auto lg:hidden text-sidebar-foreground"
               onClick={() => setSidebarOpen(false)}
@@ -125,8 +136,8 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
             >
               <X className="w-5 h-5" />
             </button>
+            </div>
           </div>
-
           {/* Role indicator */}
           <div className="px-4 py-4 border-b border-sidebar-border">
             <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-sidebar-accent">
@@ -201,13 +212,6 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
           <div className="flex-1" />
 
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setShowAllNav((s) => !s)}
-              className="hidden md:inline-flex items-center px-2 py-1 text-xs rounded text-muted-foreground hover:bg-muted/20"
-              title="Toggle all nav"
-            >
-              {showAllNav ? "All Nav: ON" : "All Nav: OFF"}
-            </button>
 
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="w-5 h-5" />

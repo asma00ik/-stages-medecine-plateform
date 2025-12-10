@@ -8,7 +8,6 @@ import {
   MapPin, 
   Building2,
   Clock,
-  DollarSign,
   ArrowRight
 } from "lucide-react";
 
@@ -16,23 +15,21 @@ const InternshipsPage = () => {
   const internships = [
     {
       id: 1,
-      title: "Stage de Développement Web",
+      title: "Stage en Médecine Générale",
       hospital: "Hôpital Central",
       location: "Alger",
       duration: "3 mois",
-      salary: "30,000 DA",
-      department: "Informatique",
-      description: "Rejoignez notre équipe IT pour développer nos applications web...",
+      department: "Médecine Générale",
+      description: "Accompagnez les médecins généralistes et participez aux consultations et soins des patients.",
     },
     {
       id: 2,
-      title: "Stage en Chirurgie Générale",
+      title: "Stage en Chirurgie",
       hospital: "Clinique Médicale Ibn Sina",
       location: "Oran",
       duration: "2 mois",
-      salary: "Gratuit",
       department: "Chirurgie",
-      description: "Expérience pratique en bloc opératoire sous supervision...",
+      description: "Expérience pratique en bloc opératoire sous supervision des chirurgiens.",
     },
     {
       id: 3,
@@ -40,19 +37,17 @@ const InternshipsPage = () => {
       hospital: "Hôpital Mère-Enfant",
       location: "Constantine",
       duration: "3 mois",
-      salary: "Gratuit",
       department: "Pédiatrie",
-      description: "Travail avec enfants et acquisition d'expérience clinique...",
+      description: "Travail avec enfants et acquisition d'expérience clinique encadrée par des pédiatres.",
     },
     {
       id: 4,
-      title: "Stage en Infirmerie",
+      title: "Stage en Soins Infirmiers",
       hospital: "Centre Médical du Sud",
       location: "Béchar",
       duration: "4 mois",
-      salary: "20,000 DA",
       department: "Nursing",
-      description: "Formation complète en soins infirmiers et gestion de patients...",
+      description: "Formation complète en soins infirmiers et gestion des patients hospitalisés.",
     },
   ];
 
@@ -62,10 +57,10 @@ const InternshipsPage = () => {
         {/* Header */}
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-            Annonces de Stages
+            Annonces de Stages Médicaux
           </h1>
           <p className="text-muted-foreground mt-1">
-            Découvrez les opportunités de stage disponibles
+            Découvrez les opportunités de stage disponibles pour les étudiants
           </p>
         </div>
 
@@ -74,11 +69,10 @@ const InternshipsPage = () => {
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-3 w-5 h-5 text-muted-foreground" />
             <Input 
-              placeholder="Rechercher une annonce..." 
+              placeholder="Rechercher un stage..." 
               className="pl-10"
             />
           </div>
-          <Button>Filtrer</Button>
         </div>
 
         {/* Internships Grid */}
@@ -104,7 +98,7 @@ const InternshipsPage = () => {
                       {internship.description}
                     </p>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">
@@ -115,12 +109,6 @@ const InternshipsPage = () => {
                         <Clock className="w-4 h-4 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">
                           {internship.duration}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm font-medium text-foreground">
-                          {internship.salary}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
